@@ -17,4 +17,24 @@ public class Record {
     public Long getId() {
         return id;
     }
+
+    private String band;
+
+    public void setBand(String band) {
+        this.band = band;
+    }
+
+    public String getBand() {
+        return band;
+    }
+
+    private String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
