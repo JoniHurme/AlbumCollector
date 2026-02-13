@@ -17,4 +17,8 @@ public class RecordService {
     public List<Record> findAll(){
         return recordRepository.findAll();
     }
+    public long Count() {
+        long count = recordRepository.count();
+        return count;
+    }
 }
