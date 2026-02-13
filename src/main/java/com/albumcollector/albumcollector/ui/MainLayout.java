@@ -2,12 +2,14 @@ package com.albumcollector.albumcollector.ui;
 
 import com.albumcollector.albumcollector.model.entity.Record;
 import com.albumcollector.albumcollector.service.RecordService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.open.Open;
 
 @Route("/")
 @PageTitle("Album Collector")
@@ -34,7 +36,14 @@ public class MainLayout extends VerticalLayout {
         add(grid);
         listRecords();
 
+        add(addRecordButton);
     }
+
+//  button to add records
+    Button addRecordButton = new Button("Add a record",
+        e -> new AddRecordForm().open()){
+
+    };
 
 //  Functions
     private void listRecords() {
