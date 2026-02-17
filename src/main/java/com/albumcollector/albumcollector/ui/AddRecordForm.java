@@ -27,6 +27,7 @@ public class AddRecordForm extends Dialog {
 
         Button saveButton = new Button("Save", buttonClickEvent -> {
             SaveRecord();
+            close();
         });
         Button cancelButton = new Button("Cancel",
                 e -> close());
@@ -44,6 +45,7 @@ public class AddRecordForm extends Dialog {
         record.setName(name);
 
         recordService.insertNewRecord(record);
+
     }
 
 
