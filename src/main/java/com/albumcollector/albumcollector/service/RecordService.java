@@ -22,7 +22,13 @@ public class RecordService {
 
     @Transactional
     public void insertNewRecord(Record levy){
-        this.entityManager.persist(levy);
+        entityManager.persist(levy);
+    }
+
+    @Transactional
+    public void removeRecord(Long id){
+        Record levy = entityManager.find(Record.class, id);
+        entityManager.remove(levy);
     }
 
     public List<Record> findAll(){
