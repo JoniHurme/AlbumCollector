@@ -16,7 +16,7 @@ import com.vaadin.open.Open;
 public class MainLayout extends VerticalLayout {
 
     private final Grid<Record> grid;
-    private final RecordService recordService;
+    private RecordService recordService;
 
     MainLayout(RecordService recordService) {
 //      Init the nav bar and render it.
@@ -41,7 +41,7 @@ public class MainLayout extends VerticalLayout {
 
 //  button to add records
     Button addRecordButton = new Button("Add a record",
-        e -> new AddRecordForm().open()){
+        e -> new AddRecordForm(recordService).open()){
 
     };
 
