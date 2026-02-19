@@ -7,8 +7,9 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
-public class AddRecordForm extends Dialog {
+import java.util.List;
 
+public class AddRecordForm extends Dialog {
 
     private final RecordService recordService;
 
@@ -16,7 +17,7 @@ public class AddRecordForm extends Dialog {
     TextField recordField = new TextField("Record");
 
 
-    public AddRecordForm(RecordService recordService) {
+    public AddRecordForm(RecordService recordService, List<Record> recordProvider) {
 
         this.recordService = recordService;
 
@@ -27,6 +28,7 @@ public class AddRecordForm extends Dialog {
 
         Button saveButton = new Button("Save", buttonClickEvent -> {
             SaveRecord();
+
             close();
         });
         Button cancelButton = new Button("Cancel",
@@ -46,7 +48,8 @@ public class AddRecordForm extends Dialog {
 
         recordService.insertNewRecord(record);
 
+//        recordListDataProvider.refreshAll();
+
+
     }
-
-
 }

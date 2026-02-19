@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,9 +33,11 @@ public class RecordService {
     }
 
     public List<Record> findAll(){
-        return recordRepository.findAll();
+        return new ArrayList<>(recordRepository.findAll());
+//        return recordRepository.findAll();
     }
-    public long Count() {
+
+    public long count() {
         long count = recordRepository.count();
         return count;
     }
