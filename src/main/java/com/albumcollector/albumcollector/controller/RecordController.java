@@ -1,13 +1,18 @@
 package com.albumcollector.albumcollector.controller;
 
+import com.albumcollector.albumcollector.model.entity.Record;
 import com.albumcollector.albumcollector.service.RecordService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/records")
+//@RequestMapping("/api/records")
 public class RecordController {
 
+    private final RecordService service;
+
+    public RecordController(RecordService service) {
+        this.service = service;
+    }
 
 }
