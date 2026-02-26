@@ -1,8 +1,6 @@
 package com.albumcollector.albumcollector.controller;
 
-import com.albumcollector.albumcollector.model.entity.Record;
 import com.albumcollector.albumcollector.service.RecordService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
