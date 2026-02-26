@@ -3,7 +3,7 @@ package com.albumcollector.albumcollector.model.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="test")
+@Table(name="prodtest")
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,23 +17,59 @@ public class Record {
         return id;
     }
 
-    private String band;
+    private String artist;
+    private String title;
+    private String genre;
+    private boolean favourite;
+    private String medium;
+    private Integer year;
 
-    public void setBand(String band) {
-        this.band = band;
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public String getBand() {
-        return band;
+    public String getArtist() {
+        return artist;
     }
 
-    private String name;
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
+    public boolean getFavourite() {
+        return favourite;
+    }
+
+    public void setYear(int yearInteger) {
+        this.year = year;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public void setMedium(String medium) {
+        this.medium = medium;
     }
 }
