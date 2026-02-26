@@ -57,8 +57,8 @@ public class Record {
         return favourite;
     }
 
-    public void setYear(int yearInteger) {
-        this.year = year;
+    public void setYear(Integer yearInteger) {
+        this.year = yearInteger;
     }
 
     public Integer getYear() {
