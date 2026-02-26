@@ -14,6 +14,7 @@ public class AddRecordForm extends Dialog {
 
     private final RecordService recordService;
 
+//    Fields for values.
     TextField bandField = new TextField("Band");
     TextField recordField = new TextField("Record");
     TextField genreField = new TextField("Genre");
@@ -46,6 +47,7 @@ public class AddRecordForm extends Dialog {
     }
 
     private void SaveRecord(){
+//        Get the wanted values
         String band = bandField.getValue().trim();
         String title = recordField.getValue().trim();
         String genre = genreField.getValue().trim();
@@ -54,6 +56,7 @@ public class AddRecordForm extends Dialog {
         String yearString = yearField.getValue().trim();
         int yearInteger = Integer.parseInt(yearString);
 
+//        Send the wanted values
         Record record = new Record();
         record.setArtist(band);
         record.setTitle(title);
