@@ -14,7 +14,7 @@ public class AddRecordForm extends Dialog {
 
     private final RecordService recordService;
 
-//    Fields for values.
+    //    Fields for values.
     TextField bandField = new TextField("Band");
     TextField recordField = new TextField("Record");
     TextField genreField = new TextField("Genre");
