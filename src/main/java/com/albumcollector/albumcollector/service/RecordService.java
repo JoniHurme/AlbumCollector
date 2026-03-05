@@ -5,6 +5,7 @@ import com.albumcollector.albumcollector.repository.RecordRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,17 +14,29 @@ import java.util.List;
 @Service
 public class RecordService {
 
+    private final ApplicationEventPublisher publisher;
+
     private final RecordRepository recordRepository;
-    public RecordService(RecordRepository recordRepository){
+    public RecordService(ApplicationEventPublisher publisher, RecordRepository recordRepository){
+//        Constructors
+        this.publisher = publisher;
         this.recordRepository = recordRepository;
     }
 
     @PersistenceContext
     private EntityManager entityManager;
 
+//    @Transactional
+//    public void insertNewRecord(Record levy){
+//        entityManager.persist(levy);
+//    }
+
     @Transactional
-    public void insertNewRecord(Record levy){
-        entityManager.persist(levy);
+    public Record insertNewRecord(Record levy){
+        Record saved = recordRepository.save(levy);
+//        entityManager.persist(levy);
+        publisher.publishEvent(new NewRecordEvent(saved.getId()));
+        return saved;
     }
 
     @Transactional
