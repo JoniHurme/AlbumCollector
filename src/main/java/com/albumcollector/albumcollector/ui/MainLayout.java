@@ -10,8 +10,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Route("/")
@@ -27,9 +25,6 @@ public class MainLayout extends VerticalLayout {
         MenuBar navBar = buildNav();
         add(navBar);
 
-//        UI ui = UI.getCurrent();
-//        ui.access(() -> grid.getDataProvider().refreshAll());
-
         add(new H1("Album Collector"));
 //      End of Header. There will be an actual header sometime I hope.
 
@@ -42,7 +37,7 @@ public class MainLayout extends VerticalLayout {
         grid.setDataProvider(recordProvider);
 
 //      Add grid component and some test functions.
-        add(String.valueOf(ammountOfRecords()));
+        add(String.valueOf(amountOfRecords()));
 //        grid.setItems(recordList);
         add(grid);
 //        listRecords();
@@ -53,30 +48,26 @@ public class MainLayout extends VerticalLayout {
     //  button to add records
     Button addRecordButton = new Button("Add a record",
         e -> new AddRecordForm(recordService,recordList).open()){
-
     };
 
     Button refreshButton = new Button("Refresh", buttonClickEvent -> {
         refreshGrid();
 
-
     });
 
-//  Button that removes records.
+//  Button that removes records by ID for now.
     Button removeRecordButton = new Button("Delete record", buttonClickEvent -> {
         new DeleteRecordForm(recordService).open();
-//      Add a method to refresh the grid after
     });
 
 //  Functions
-//    private void listRecords() {
-//        grid.setItems(recordService.findAll());
-//    }
-    private long ammountOfRecords() {
+
+    private long amountOfRecords() {
         long count = recordService.count();
         return count;
     }
-//  The menu is configured.
+
+    //  The menu is configured.
     private MenuBar buildNav() {
         MenuBar navBar = new MenuBar();
 
@@ -88,9 +79,7 @@ public class MainLayout extends VerticalLayout {
     }
 
     public void refreshGrid(){
-        grid.getDataProvider().refreshAll();
-
-//        recordProvider.refreshAll();
+        grid.setItems(recordService.findAll());
     }
 
 }
