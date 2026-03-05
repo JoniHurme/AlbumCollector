@@ -21,7 +21,7 @@ public class CollectionView extends VerticalLayout {
         Grid<Record> recordGrid = new Grid<>(Record.class, false);
         private RecordService recordService;
         private final Binder<Record> recordBinder = new Binder<>(Record.class);
-        private final Dialog dialog = new Dialog();
+        private final Dialog viewDialog = new Dialog();
 
 
         public CollectionView(RecordService recordService){
@@ -35,7 +35,6 @@ public class CollectionView extends VerticalLayout {
         recordGrid.addColumn(Record::getArtist).setHeader("Record artist");
         recordGrid.addColumn(Record::getYear).setHeader("Record Year");
         recordGrid.addColumn(Record::getMedium).setHeader("Medium");
-
         List<Record> recordList = recordService.findAll();
         recordGrid.setItems(recordList);
 
@@ -49,29 +48,35 @@ public class CollectionView extends VerticalLayout {
 
 //    Function that opens the recordView and binds the values from the clicked record.
     private void openRecord(Record record) {
-        recordBinder.readBean(record);
-        dialog.open();
+        recordBinder.setBean(record);
+        viewDialog.open();
     }
-//  configuring the dialog that the openRecord() function opens.
+//  configuring the viewDialog that the openRecord() function opens.
     private void ConfigureRecordDialog() {
         FormLayout recordForm = new FormLayout();
 
             TextField title = new TextField("Title");
+            title.setReadOnly(true);
             TextField artist = new TextField("Artists");
+            artist.setReadOnly(true);
             TextField genre = new TextField("Genre");
+            genre.setReadOnly(true);
             TextField medium = new TextField("Medium");
+            medium.setReadOnly(true);
             IntegerField year = new IntegerField("Year");
+            year.setReadOnly(true);
             Checkbox favourite = new Checkbox("Favourite");
-            IntegerField idField = new IntegerField("ID");
+            favourite.setReadOnly(true);
+            IntegerField idField = new IntegerField("Record ID");
 
             recordForm.add(title, artist, genre, medium, year, favourite);
 
-            recordBinder.forField(title).bind(Record::getArtist, null);
-            recordBinder.forField(artist).bind(Record::getTitle, null);
-            recordBinder.forField(genre).bind(Record::getGenre, null);
-            recordBinder.forField(medium).bind(Record::getMedium, null);
-            recordBinder.forField(year).bind(Record::getYear, null);
-            recordBinder.forField(favourite).bind(Record::getFavourite, null);
+            recordBinder.forField(artist).bind(Record::getArtist, Record::setArtist);
+            recordBinder.forField(title).bind(Record::getTitle, Record::setTitle);
+            recordBinder.forField(genre).bind(Record::getGenre, Record::setGenre);
+            recordBinder.forField(medium).bind(Record::getMedium, Record::setMedium);
+            recordBinder.forField(year).bind(Record::getYear, Record::setYear);
+            recordBinder.forField(favourite).bind(Record::getFavourite, Record::setFavourite);
 //            Converts the Long value into an int value and vice versa. Setter is still null as it is auto generated.
             recordBinder.forField(idField)
                     .withConverter(
@@ -79,10 +84,11 @@ public class CollectionView extends VerticalLayout {
                             l -> Math.toIntExact(l == null ? null : l.intValue()))
                     .bind(Record::getId, null);
 
-//            Start of the footer element
+//            Start of the viewFooter element
             Button close = new Button("Close", buttonClickEvent -> {
-                    dialog.close();
+                    viewDialog.close();
             });
+//            Delete button
             Button delete = new Button("Delete record", buttonClickEvent -> {
 
 //                    Takes the value from idField and parses it into a Long from a String.
@@ -91,12 +97,36 @@ public class CollectionView extends VerticalLayout {
                     Long idLong = Long.parseLong(String.valueOf(intID));
 
                     recordService.removeRecord(idLong);
-                    dialog.close();
+                    refreshGrid();
+                    viewDialog.close();
             });
-            HorizontalLayout footer = new HorizontalLayout(close, delete, idField);
 
-//            Create the dialog with wanted elements.
-            dialog.add(recordForm, footer);
+//            Edit button
+            Button edit = new Button("Edit", buttonClickEvent -> {
+                title.setReadOnly(false);
+                artist.setReadOnly(false);
+                genre.setReadOnly(false);
+                medium.setReadOnly(false);
+                year.setReadOnly(false);
+                favourite.setReadOnly(false);
+            });
+
+            Button save = new Button("Save", buttonClickEvent -> {
+                Record record;
+                record = recordBinder.getBean();
+                recordService.insertNewRecord((record));
+                refreshGrid();
+                viewDialog.close();
+            });
+
+            HorizontalLayout viewFooter = new HorizontalLayout(close, delete, edit, save, idField);
+
+//            Create the viewDialog with wanted elements.
+            viewDialog.add(recordForm, viewFooter);
+    }
+
+    public void refreshGrid(){
+            recordGrid.setItems(recordService.findAll());
     }
 
 }
