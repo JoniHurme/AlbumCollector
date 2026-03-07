@@ -33,11 +33,12 @@ For now, the project has no ready to go build and if you want to try it you will
        )
    
 4. Inside the `application.properties` file have the following fields populated with the details of your postgreSQL server:
-   - `spring.datasource.url=jdbc:postgresql://YOURSERVER:YOURPORT/NAMEOFYOURDATABASE`
-   - `spring.datasource.driver-class-name=org.postgresql.Driver`
-   - `spring.datasource.username=YOURUSERNAME`
-   - `spring.datasource.password=YOURPASSWORD`
-   
+```
+spring.datasource.url=jdbc:postgresql://YOURSERVER:YOURPORT/NAMEOFYOURDATABASE
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.username=YOURUSERNAME
+spring.datasource.password=YOURPASSWORD
+```
 You can also create `application-user1.properties` file and put the details there. Just make sure the `application.properties` field `spring.profiles.active` is set to the user1.
 
 ## What features are coming
