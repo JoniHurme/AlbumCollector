@@ -54,4 +54,9 @@ public class RecordService {
         long count = recordRepository.count();
         return count;
     }
+
+    public Long countFavourites(){
+       Long favourites = recordRepository.countAllByFavouriteIsTrue();
+       return favourites;
+    }
 }
