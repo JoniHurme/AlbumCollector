@@ -9,6 +9,8 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.sidenav.SideNav;
+import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -28,9 +30,17 @@ public class CollectionView extends VerticalLayout {
                 this.recordService = recordService;
         add(new H1("This is the collection page!"));
 
+//      Init the nav bar and render it.
+            SideNav nav = new SideNav();
+//      Add links to the nav bar
+            SideNavItem homeLink = new SideNavItem("Home", MainLayout.class);
+            SideNavItem collectionLink = new SideNavItem("Collection", CollectionView.class);
+            nav.addItem(homeLink, collectionLink);
+            add(nav);
+
 //      Configuration must be called somewhere
         ConfigureRecordDialog();
-
+//        Configuring the grid of records
         recordGrid.addColumn(Record::getTitle).setHeader("Record title");
         recordGrid.addColumn(Record::getArtist).setHeader("Record artist");
         recordGrid.addColumn(Record::getYear).setHeader("Record Year");
@@ -40,13 +50,21 @@ public class CollectionView extends VerticalLayout {
 
         recordGrid.addItemClickListener(recordItemClickEvent -> {
                 openRecord(recordItemClickEvent.getItem());
+                refreshGrid();
         });
 
+//        Buttons to interact with the grid. Add and such.
+        Button addRecordBTN = new Button("Add a Record", buttonClickEvent -> {
+//            recordBinder.
+//            viewDialog.open();
+//            new AddRecordForm(recordService, recordList).open();
+        } );
 
-        add(recordGrid);
+
+        add(recordGrid, addRecordBTN);
     }
 
-//    Function that opens the recordView and binds the values from the clicked record.
+    //    Function that opens the recordView and binds the values from the clicked record.
     private void openRecord(Record record) {
         recordBinder.setBean(record);
         viewDialog.open();
@@ -71,6 +89,7 @@ public class CollectionView extends VerticalLayout {
 
             recordForm.add(title, artist, genre, medium, year, favourite);
 
+//            Binds attributes of Record entity class into the correct fields of the grid.
             recordBinder.forField(artist).bind(Record::getArtist, Record::setArtist);
             recordBinder.forField(title).bind(Record::getTitle, Record::setTitle);
             recordBinder.forField(genre).bind(Record::getGenre, Record::setGenre);
