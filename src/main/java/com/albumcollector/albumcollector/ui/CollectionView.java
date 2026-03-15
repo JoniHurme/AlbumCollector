@@ -57,11 +57,15 @@ public class CollectionView extends VerticalLayout {
         Button addRecordBTN = new Button("Add a Record", buttonClickEvent -> {
 //            recordBinder.
 //            viewDialog.open();
-//            new AddRecordForm(recordService, recordList).open();
+            new AddRecordForm(recordService, recordList).open();
         } );
 
+        Button refreshBTN = new Button("Refresh Grid", buttonClickEvent -> {
+            refreshGrid();
+        });
 
-        add(recordGrid, addRecordBTN);
+
+        add(recordGrid, addRecordBTN, refreshBTN);
     }
 
     //    Function that opens the recordView and binds the values from the clicked record.
