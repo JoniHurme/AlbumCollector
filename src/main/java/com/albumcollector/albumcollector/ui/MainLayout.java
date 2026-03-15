@@ -38,9 +38,11 @@ public class MainLayout extends VerticalLayout {
 
         nav.addItem(homeLink, collectionLink);
         add(nav);
-        add(String.valueOf(amountOfRecords()));
-        add(String.valueOf(amountOfFavourites()));
+
+
+        add("Amount of records " + String.valueOf(amountOfRecords()));
         add(addRecordButton);
+        add("Amount of favourites " + String.valueOf(amountOfFavourites()));
     }
 
 
