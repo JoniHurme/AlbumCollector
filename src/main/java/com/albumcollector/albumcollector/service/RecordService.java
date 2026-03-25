@@ -26,10 +26,6 @@ public class RecordService {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @Transactional
-//    public void insertNewRecord(Record levy){
-//        entityManager.persist(levy);
-//    }
 
     @Transactional
     public Record insertNewRecord(Record levy){
