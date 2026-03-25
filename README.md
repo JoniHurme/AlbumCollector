@@ -4,19 +4,35 @@ Album Collector is a software that the user can use to track their music collect
 Records can be added, modified and removed from the collection and in the future additional details can be added. Such as limited editions, first editions, signatures and so on.
 
 Tech solutions:
-- Frontend is Vaadin
+- Frontend is React (Vite)
 - Backend is Java Spring
 - Database is PostgreSQL
 
 For now, the project has no ready to go build and if you want to try it you will need to configure the database yourself. Here is how to get started:
 
-You will need the JDK. This can be done automatically in your IDE or you can install it from Oracle's website.
+You will need the JDK and Node.js. This can be done automatically in your IDE or you can install it from official websites.
 A tool like docker is useful for the PostgreSQL server.
 
 1. Clone the project
 2. Start a PostgreSQL server. It can be a docker container on your localhost.
 3. Copy `application-example.properties` and change the database details.
-4. After the database details are set you can start the application in your IDE and go to `localhost:8080` in your browser.
+4. Build the project using Maven: `./mvnw clean install` (This will also build the React frontend).
+### Option 2: Running with Docker (Recommended)
+
+You can run the entire system (Frontend, Backend, and Database) using one Docker Compose command. This requires Docker and Docker Compose (or Podman with podman-compose) to be installed.
+
+1.  Build and start the containers:
+    ```bash
+    docker compose up --build
+    ```
+2.  Open your browser and navigate to `http://localhost`.
+
+The system consists of:
+-   **Frontend**: React app served by Nginx on port 80.
+-   **Backend**: Spring Boot app on port 8080.
+-   **Database**: PostgreSQL on port 5432.
+
+The frontend is configured to proxy all `/api` requests to the backend container automatically.
 ```
 spring.datasource.url=jdbc:postgresql://YOURSERVER:YOURPORT/NAMEOFYOURDATABASE
 spring.datasource.username=YOURUSERNAME
@@ -26,21 +42,16 @@ You can also create `application-user1.properties` file and put the details ther
 
 ## How to use
 
-In the home view you see the amount of records you have and how many favourites you have. Below is `add a record` button that you can use to add records.
-In the collection view you can see your records and click on them to see more details or remove a record.
+In the React app you see the collection in a table. You can add new records using the form at the top and delete records using the button on each row.
+A star (★) indicates a favourite record.
 
 
-## What features are coming
-- Add many records at once
+## Other stuff that needs doing:
+- Refactor components and elements
 - Sort and filter records
 - Add more detailed information for records.
 - Record wishlist that can be shared
 - Package the whole thing into a docker container
-
-## Other stuff that needs doing:
-- Refactor components and elements
-- Migrating the ui from Vaadin to React
-  - Helps to separate the frontend from the backend.
 
 If you want to know what I will work on next see the issues tab.
 
