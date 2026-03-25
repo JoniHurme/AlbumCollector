@@ -35,7 +35,7 @@ public class RecordService {
     public Record insertNewRecord(Record levy){
         Record saved = recordRepository.save(levy);
 //        entityManager.persist(levy);
-        publisher.publishEvent(new NewRecordEvent(saved.getId()));
+//        publisher.publishEvent(new NewRecordEvent(saved.getId()));
         return saved;
     }
 
