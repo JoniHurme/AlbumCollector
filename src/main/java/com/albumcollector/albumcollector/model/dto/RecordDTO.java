@@ -10,6 +10,8 @@ public class RecordDTO {
     private Integer year;
     private Long collectionId;
 
+    public RecordDTO() {
+    }
 
     public RecordDTO(Long id, String artist, String title, String genre, boolean favourite, String medium, Integer year) {
         this.id = id;
