@@ -29,7 +29,7 @@ public class RecordController {
     @PostMapping
     public RecordDTO addRecord(@RequestBody RecordDTO recordDTO) {
         Record record = convertToEntity(recordDTO);
-        Record saved = service.insertNewRecord(record);
+        Record saved = service.insertNewRecord(record, recordDTO.getCollectionId());
         return convertToDTO(saved);
     }
 
@@ -46,7 +46,8 @@ public class RecordController {
                 record.getGenre(),
                 record.getFavourite(),
                 record.getMedium(),
-                record.getYear()
+                record.getYear(),
+                record.getCollection() == null ? null : record.getCollection().getId()
         );
     }
 

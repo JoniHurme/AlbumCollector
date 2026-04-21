@@ -8,8 +8,8 @@ public class RecordDTO {
     private boolean favourite;
     private String medium;
     private Integer year;
+    private Long collectionId;
 
-    public RecordDTO() {}
 
     public RecordDTO(Long id, String artist, String title, String genre, boolean favourite, String medium, Integer year) {
         this.id = id;
@@ -21,6 +21,12 @@ public class RecordDTO {
         this.year = year;
     }
 
+    public RecordDTO(Long id, String artist, String title, String genre, boolean favourite, String medium, Integer year, Long collectionId) {
+        this(id, artist, title, genre, favourite, medium, year);
+        this.collectionId = collectionId;
+    }
+
+//    SETTERS AND GETTERS
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getArtist() { return artist; }
@@ -35,4 +41,6 @@ public class RecordDTO {
     public void setMedium(String medium) { this.medium = medium; }
     public Integer getYear() { return year; }
     public void setYear(Integer year) { this.year = year; }
+    public Long getCollectionId() { return collectionId; }
+    public void setCollectionId(Long collectionId) { this.collectionId = collectionId; }
 }
