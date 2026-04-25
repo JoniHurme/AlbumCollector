@@ -5,7 +5,6 @@ import java.util.Set;
 public class CollectionDTO{
 
     private Long id;
-
     private Set<RecordDTO> records;
 
     public CollectionDTO(Long id, Set<RecordDTO> records) {

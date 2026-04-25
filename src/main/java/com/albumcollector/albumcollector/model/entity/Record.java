@@ -1,11 +1,9 @@
 package com.albumcollector.albumcollector.model.entity;
 
-import com.albumcollector.albumcollector.service.DefaultCollectionListener;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="records")
-@EntityListeners(DefaultCollectionListener.class)
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +17,7 @@ public class Record {
 
     public Record() {
         this.collection = null;
+        this.wishlist = null;
     }
 
 

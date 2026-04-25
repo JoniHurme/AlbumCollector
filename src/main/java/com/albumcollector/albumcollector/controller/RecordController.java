@@ -29,7 +29,7 @@ public class RecordController {
     @PostMapping
     public RecordDTO addRecord(@RequestBody RecordDTO recordDTO) {
         Record record = convertToEntity(recordDTO);
-        Record saved = service.insertNewRecord(record, recordDTO.getCollectionId());
+        Record saved = service.insertNewRecord(record, recordDTO.getCollectionId(), recordDTO.getWishlistId());
         return convertToDTO(saved);
     }
 
@@ -47,7 +47,8 @@ public class RecordController {
                 record.getFavourite(),
                 record.getMedium(),
                 record.getYear(),
-                record.getCollection() == null ? null : record.getCollection().getId()
+                record.getCollection() == null ? null : record.getCollection().getId(),
+                record.getWishlist() == null ? null : record.getWishlist().getId()
         );
     }
 
@@ -60,6 +61,8 @@ public class RecordController {
         record.setFavourite(recordDTO.isFavourite());
         record.setMedium(recordDTO.getMedium());
         record.setYear(recordDTO.getYear());
+        record.setCollection(recordDTO.getCollectionId() == null ? null : service.getCollectionId(recordDTO.getCollectionId()));
+        record.setWishlist(recordDTO.getWishlistId() == null ? null : service.getWishlistId(recordDTO.getWishlistId()));
         return record;
     }
 }
