@@ -6,6 +6,8 @@ import com.albumcollector.albumcollector.repository.RecordRepository;
 import com.albumcollector.albumcollector.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,5 +52,16 @@ public class WishlistService {
 
     public Wishlist createWishlist(Wishlist wishlist) {
         return wishlistRepository.save(wishlist);
+    }
+
+    public byte[] exportWishlist(Long id) {
+        Wishlist wishlist = wishlistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Wishlist not found: " + id));
+
+        try {
+            return PdfService.generateWishlistPdf(new ArrayList<>(wishlist.getRecords()));
+        } catch (IOException exception) {
+            throw new IllegalStateException("Failed to generate wishlist export for id: " + id, exception);
+        }
     }
 }

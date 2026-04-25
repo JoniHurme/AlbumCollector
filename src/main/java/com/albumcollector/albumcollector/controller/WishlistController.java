@@ -5,6 +5,9 @@ import com.albumcollector.albumcollector.model.dto.WishlistDTO;
 import com.albumcollector.albumcollector.model.entity.Record;
 import com.albumcollector.albumcollector.model.entity.Wishlist;
 import com.albumcollector.albumcollector.service.WishlistService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +39,15 @@ public class WishlistController {
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/export/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> exportWishlist(@PathVariable Long id) {
+        byte[] wishlistData = wishlistService.exportWishlist(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=wishlist_" + id + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(wishlistData);
     }
 
     @PostMapping
