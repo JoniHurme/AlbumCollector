@@ -1,7 +1,7 @@
-# ALBUM COLLECTOR - Work in Progress
+# ALBUM COLLECTOR
 
 Album Collector is a software that the user can use to track their music collection.
-Records can be added, modified and removed from the collection, and in the future additional details can be added. Such as limited editions, first editions, signatures and so on.
+Records can be added and removed from the collection. In the future additional details can be added. Such as limited editions, first editions, signatures and so on.
 
 Tech solutions:
 - Frontend is React (Vite)
@@ -10,43 +10,52 @@ Tech solutions:
 - Database is PostgreSQL
 
 
-For now there is no simple way to showcase the application. You will need some know how so you can run it locally.
+## How to run the application
+Currently, the application is a local only deployment, and you have two choices on running it:
+- Run the code from IDE and use it that way OR
+- Deploy a Docker container
+
+### Running the code from IDE
+The application is a Spring Boot application, so you will need Java and Maven installed on your machine or in your IDE. And of course, PostgreSQL for the database and React for the frontend.
+
 - Clone the repository to your Java IDE
 - Clone the frontend to your frontend IDE
 - Create a PostgreSQL server and make sure the server details match the application.properties file
 - Start the PostgreSQL server
 - Start the frontend and the backend of the application in your IDE
-- Navigate to localhost:5173 in your browser
+- - The frontend will be running on localhost:5173
+- - The backend will be running on localhost:8080
+- - - The backend will be dependent on the PostgreSQL server
+- Navigate to localhost:5173 in your browser and enjoy.
 
-## Other stuff that needs doing:
-- Refactor components and elements
-- Sort and filter records
+### Deploying a Docker container
+- Clone the backend and the frontend repositories to your machine
+- Change the .example files details to match your environment.
+- - Docker-compose-example has a line you need to change depending on where you cloned the frontend to.
+- - env.example has database details that you should change.
+- Once you have the required files changed and Dockerfiles present, run docker compose up -d in the root directory of the project.
+- The application should be running, and you should be able to see it in localhost:8085. If you need to change the port, it is in the docker-compose.yml file.
+
+## How to use the application
+- Depending on the way you are using the application, navigate to the address required.
+- Add a record by filling in the form fields and clicking Add Record.
+- Record row has a button to remove records.
+- The wishlist checkbox can be used to add records to a wishlist, and the wishlist can be seen in the wishlist tab.
+- Wishlist can be shared with other users by exporting it as a PDF.
+
+## Hopefully upcoming features
+- Sort and filter records.
 - Add more detailed information for records.
-- Record wishlist that can be shared
-- Package the whole thing into a docker container
+- Add logs.
 
-If you want to know what I will work on next, see the issues tab.
 
 ## Troubleshooting
+Adding a record and it is not showing up?
+- In docker deployment, it is possible that the backend CORS policy is blocking the request. In that case, you can change the RecordController.java files CrossOrigins() method to allow all origins.
+- If it is being sent to the backend, check if the database is running.
+- - If it is, then check the database connection details in either the application.properties file or .env file.
+- - - Docker will check the .env file,
+- - - IDE will check the application.properties file.
 
-Make sure the postgreSQL database has the following columns and types:
-- id `integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY`
-- artist `varchar(25)`
-- title `varchar(25)`
-- genre `varchar(25)`
-- favourite `boolean`
-- medium `varchar(8)`
-- year `integer`
-
-So you can just run the following with your table name:
-   ```
-       CREATE TABLE YOURTABLENAME(
-       id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-       artist VARCHAR(25),
-       title VARCHAR(25),
-       genre VARCHAR(25),
-       favourite BOOLEAN,
-       medium VARCHAR(8),
-       year INTEGER
-       )
-   
+The Backend will not start?
+- The backend is dependent on the PostgreSQL database. If it is not running, doesn't exist or the connection details are wrong, the backend will not start.
