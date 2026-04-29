@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/records")
 @CrossOrigin(origins = "http://localhost:5173") // For Vite dev server
+//@CrossOrigin(origins = "http:/localhost:8085")
 public class RecordController {
 
     private final RecordService service;
