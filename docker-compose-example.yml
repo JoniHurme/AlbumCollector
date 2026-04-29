@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: albumcollector_backend_by_me
+    container_name: albumcollector_backend
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
@@ -36,7 +36,7 @@ services:
       build:
         context: {CHANGE THIS TO YOUR FRONTEND DIRECTORY}
         dockerfile: Dockerfile
-      container_name: albumcollector_frontend_by_me
+      container_name: albumcollector_frontend
       ports:
         - "8085:80"
       networks:
