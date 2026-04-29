@@ -22,6 +22,7 @@ The application is a Spring Boot application, so you will need Java and Maven in
 - Clone the frontend to your frontend IDE
 - Create a PostgreSQL server and make sure the server details match the application.properties file
 - Start the PostgreSQL server
+- - Inject a collection and a wishlist into the database. For Docker deployment, it is done automatically, but for IDE deployment, it is not.
 - Start the frontend and the backend of the application in your IDE
 - - The frontend will be running on localhost:5173
 - - The backend will be running on localhost:8080
