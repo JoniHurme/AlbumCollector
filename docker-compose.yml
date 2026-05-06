@@ -33,9 +33,7 @@ services:
     command: mvn spring-boot:run
 
   frontend:
-      build:
-        context: {CHANGE THIS TO YOUR FRONTEND DIRECTORY}
-        dockerfile: Dockerfile
+      build: https://github.com/JoniHurme/AlbumCollectorFrontend.git#master
       container_name: albumcollector_frontend
       ports:
         - "8085:80"
