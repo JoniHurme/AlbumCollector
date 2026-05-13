@@ -30,11 +30,9 @@ The application is a Spring Boot application, so you will need Java and Maven in
 - Navigate to localhost:5173 in your browser and enjoy.
 
 ### Deploying a Docker container
-- Clone the backend and the frontend repositories to your machine
-- Change the .example files details to match your environment.
-- - Docker-compose-example has a line you need to change depending on where you cloned the frontend to.
-- - env.example has database details that you should change.
-- Once you have the required files changed and Dockerfiles present, run docker compose up -d in the root directory of the project.
+- Clone the backend repository to your machine
+- Copy the .env.example file to .env and change the database details.
+- Run docker compose up -d in the root directory of the project.
 - The application should be running, and you should be able to see it in localhost:8085. If you need to change the port, it is in the docker-compose.yml file.
 
 ## How to use the application
